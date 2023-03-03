@@ -1,4 +1,4 @@
-import type { MetaFunction, LinksFunction } from "@remix-run/node";
+import type { MetaFunction, LinksFunction, LoaderArgs } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -8,7 +8,10 @@ import {
   ScrollRestoration,
 } from "@remix-run/react";
 
+import { typedjson } from "remix-typedjson";
+
 import stylesheet from "~/tailwind.css";
+import { getUser } from "./auth/session.server";
 import Header from "./components/header";
 
 export const links: LinksFunction = () => [
@@ -21,6 +24,13 @@ export const meta: MetaFunction = () => ({
   viewport: "width=device-width,initial-scale=1",
 });
 
+export const loader = async ({ request }: LoaderArgs) => {
+  return typedjson({
+    user: await getUser(request),
+    from: new URL(request.url).searchParams.get("from"),
+  });
+};
+
 export default function App() {
   return (
     <html lang="en">
@@ -29,7 +39,7 @@ export default function App() {
         <Links />
       </head>
       <body className="bg-background text-foreground antialiased">
-        <Header/>
+        <Header />
         <Outlet />
         <ScrollRestoration />
         <Scripts />
