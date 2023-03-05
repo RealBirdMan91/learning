@@ -7,7 +7,10 @@ import Button from "../shared/button";
 export function UserLogin() {
   const { from } = useTypedLoaderData<typeof loader>();
   return (
-    <Form>
+    <Form
+      action={`/login?type=discord&from=${from ? from : "/"}`}
+      method="post"
+    >
       <Button leading={<SiDiscord />}>Login</Button>
     </Form>
   );

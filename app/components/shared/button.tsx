@@ -38,7 +38,7 @@ const buttonStyles = cva(
     },
     defaultVariants: {
       variant: "primary",
-    },
+    }
   }
 );
 

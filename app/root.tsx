@@ -38,7 +38,7 @@ export default function App() {
         <Meta />
         <Links />
       </head>
-      <body className="bg-background text-foreground antialiased">
+      <body className="container m-auto bg-background text-foreground antialiased">
         <Header />
         <Outlet />
         <ScrollRestoration />
